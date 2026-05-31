@@ -35,7 +35,7 @@ def render_markdown_report(
         "## Health score",
         "",
         (
-            f"**{score.points}/100** — `{score.grade}` "
+            f"**{score.points}/100** - `{score.grade}` "
             f"({score.passed}/{score.total_rules} checks passing)"
         ),
         "",
@@ -45,7 +45,7 @@ def render_markdown_report(
         "| --- | --- | --- | --- |",
     ]
     for finding in sorted(findings, key=lambda item: item.rule_id):
-        icon = "✅" if finding.status == "pass" else "❌"
+        icon = "PASS" if finding.status == "pass" else "FAIL"
         lines.append(
             f"| `{finding.rule_id}` | {icon} {finding.status} | "
             f"{finding.severity} | {finding.message} |"
@@ -54,7 +54,7 @@ def render_markdown_report(
     lines.extend(["", "## Top recommendations", ""])
     if score.top_recommendations:
         for index, finding in enumerate(score.top_recommendations, start=1):
-            lines.append(f"{index}. **{finding.title}** — {finding.recommendation}")
+            lines.append(f"{index}. **{finding.title}** - {finding.recommendation}")
     else:
         lines.append("No immediate recommendations. Keep maintaining the project.")
     lines.append("")

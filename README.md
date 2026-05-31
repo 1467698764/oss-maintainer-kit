@@ -101,6 +101,8 @@ A Markdown report starts with:
 See [`docs/usage.md`](docs/usage.md), [`docs/configuration.md`](docs/configuration.md),
 and [`docs/rule-reference.md`](docs/rule-reference.md) for details.
 
+For a committed example report, see [`docs/sample-report.md`](docs/sample-report.md).
+
 ## Development
 
 ```bash
@@ -118,3 +120,8 @@ This is an early but usable release focused on deterministic local audits. Plann
 ## License
 
 MIT. See [`LICENSE`](LICENSE).
+
+## Community
+
+Please read [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md), [`SUPPORT.md`](SUPPORT.md),
+and [`SECURITY.md`](SECURITY.md) before opening community or security reports.
