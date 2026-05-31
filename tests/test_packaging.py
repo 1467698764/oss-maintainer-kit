@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from pathlib import Path
 
 if sys.version_info >= (3, 11):
