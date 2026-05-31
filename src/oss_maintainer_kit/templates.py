@@ -1,15 +1,68 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
 from .models import TemplateInitResult
 
 TEMPLATES: dict[str, str] = {
-    "CONTRIBUTING.md": """# Contributing\n\nThanks for considering a contribution.\n\n## Local setup\n\n1. Fork and clone the repository.\n2. Create a virtual environment or language-specific development environment.\n3. Install dependencies.\n4. Run the test suite before opening a pull request.\n\n## Pull requests\n\nPlease include a clear description, tests for behavior changes, and documentation updates when needed.\n""",
-    "SECURITY.md": """# Security Policy\n\n## Reporting a vulnerability\n\nPlease do not open public issues for security vulnerabilities. Contact the maintainer privately with reproduction steps, affected versions, and impact.\n\n## Supported versions\n\nThe latest release receives security fixes.\n""",
-    ".github/ISSUE_TEMPLATE/bug_report.md": """---\nname: Bug report\nabout: Report reproducible behavior that should be fixed\n---\n\n## What happened?\n\n## Expected behavior\n\n## Reproduction steps\n\n## Environment\n""",
-    ".github/ISSUE_TEMPLATE/feature_request.md": """---\nname: Feature request\nabout: Suggest a focused improvement\n---\n\n## Problem\n\n## Proposed solution\n\n## Alternatives considered\n""",
-    ".github/pull_request_template.md": """## Summary\n\n## Verification\n\n- [ ] Tests pass locally\n- [ ] Documentation updated if needed\n- [ ] Change is small enough to review\n""",
+    "CONTRIBUTING.md": """# Contributing
+
+Thanks for considering a contribution.
+
+## Local setup
+
+1. Fork and clone the repository.
+2. Create a development environment.
+3. Install dependencies.
+4. Run the test suite before opening a pull request.
+
+## Pull requests
+
+Please include a clear description, tests for behavior changes, and documentation updates.
+""",
+    "SECURITY.md": """# Security Policy
+
+## Reporting a vulnerability
+
+Please do not open public issues for security vulnerabilities. Contact the maintainer privately
+with reproduction steps, affected versions, and impact.
+
+## Supported versions
+
+The latest release receives security fixes.
+""",
+    ".github/ISSUE_TEMPLATE/bug_report.md": """---
+name: Bug report
+about: Report reproducible behavior that should be fixed
+---
+
+## What happened?
+
+## Expected behavior
+
+## Reproduction steps
+
+## Environment
+""",
+    ".github/ISSUE_TEMPLATE/feature_request.md": """---
+name: Feature request
+about: Suggest a focused improvement
+---
+
+## Problem
+
+## Proposed solution
+
+## Alternatives considered
+""",
+    ".github/pull_request_template.md": """## Summary
+
+## Verification
+
+- [ ] Tests pass locally
+- [ ] Documentation updated if needed
+- [ ] Change is small enough to review
+""",
 }
 
 

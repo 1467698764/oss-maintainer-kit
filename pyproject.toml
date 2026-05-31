@@ -29,6 +29,7 @@ omk = "oss_maintainer_kit.cli:main"
 [tool.pytest.ini_options]
 addopts = "-q"
 pythonpath = ["src"]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100

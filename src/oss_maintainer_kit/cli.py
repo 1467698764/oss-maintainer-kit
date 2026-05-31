@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import sys
@@ -12,7 +12,10 @@ from .templates import init_templates
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="omk", description="Audit open-source repository maintenance health.")
+    parser = argparse.ArgumentParser(
+        prog="omk",
+        description="Audit open-source repository maintenance health.",
+    )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     scan = subparsers.add_parser("scan", help="Show repository evidence summary.")
@@ -26,9 +29,16 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--format", choices=("markdown", "json"), default="markdown")
     report.add_argument("--output", type=Path, help="Write report to a file instead of stdout.")
 
-    templates = subparsers.add_parser("init-templates", help="Create starter OSS maintenance templates.")
+    templates = subparsers.add_parser(
+        "init-templates",
+        help="Create starter OSS maintenance templates.",
+    )
     templates.add_argument("path", nargs="?", default=".")
-    templates.add_argument("--force", action="store_true", help="Overwrite existing generated files.")
+    templates.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite existing generated files.",
+    )
     return parser
 
 
@@ -39,13 +49,18 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.command == "scan":
             scan = scan_repository(args.path)
+            project_types = ", ".join(scan.profile.project_types) or "unknown"
+            manifests = ", ".join(scan.evidence.manifests) or "none"
             print(f"Repository: {scan.root}")
-            print(f"Project types: {', '.join(scan.profile.project_types) if scan.profile.project_types else 'unknown'}")
-            print(f"README: {'yes' if scan.evidence.has_readme else 'no'} ({scan.evidence.readme_words} words)")
+            print(f"Project types: {project_types}")
+            print(
+                f"README: {'yes' if scan.evidence.has_readme else 'no'} "
+                f"({scan.evidence.readme_words} words)"
+            )
             print(f"License: {'yes' if scan.evidence.has_license else 'no'}")
             print(f"Tests: {'yes' if scan.evidence.has_tests else 'no'}")
             print(f"CI: {'yes' if scan.evidence.has_ci else 'no'}")
-            print(f"Manifests: {', '.join(scan.evidence.manifests) if scan.evidence.manifests else 'none'}")
+            print(f"Manifests: {manifests}")
             return 0
 
         if args.command == "score":

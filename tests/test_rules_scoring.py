@@ -51,4 +51,10 @@ def test_score_prioritizes_high_impact_failures(tmp_path: Path) -> None:
     score = calculate_score(evaluate_rules(scan_repository(tmp_path)))
 
     assert score.points < 50
-    assert score.top_recommendations[0].rule_id in {"license", "package-manifest", "readme-depth", "tests", "ci"}
+    assert score.top_recommendations[0].rule_id in {
+        "license",
+        "package-manifest",
+        "readme-depth",
+        "tests",
+        "ci",
+    }

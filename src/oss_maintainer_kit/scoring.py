@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from .models import RuleFinding, ScoreResult
 
@@ -10,7 +10,10 @@ def calculate_score(findings: list[RuleFinding]) -> ScoreResult:
     earned = sum(item.weight for item in findings if item.status == "pass")
     points = round((earned / total_weight) * 100) if total_weight else 0
     failed = [item for item in findings if item.status == "fail"]
-    recommendations = sorted(failed, key=lambda item: (SEVERITY_RANK[item.severity], -item.weight, item.rule_id))[:5]
+    recommendations = sorted(
+        failed,
+        key=lambda item: (SEVERITY_RANK[item.severity], -item.weight, item.rule_id),
+    )[:5]
     return ScoreResult(
         points=points,
         grade=_grade(points),

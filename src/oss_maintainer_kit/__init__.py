@@ -1,3 +1,3 @@
-﻿"""OSS Maintainer Kit public package API."""
+"""OSS Maintainer Kit public package API."""
 
 __version__ = "0.1.0"

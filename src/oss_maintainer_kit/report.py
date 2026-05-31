@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from dataclasses import asdict
@@ -7,6 +7,7 @@ from .models import RuleFinding, ScanResult, ScoreResult
 
 
 def render_json_report(scan: ScanResult, findings: list[RuleFinding], score: ScoreResult) -> str:
+    sorted_findings = sorted(findings, key=lambda item: item.rule_id)
     payload = {
         "repository": {
             "root": str(scan.root),
@@ -14,21 +15,29 @@ def render_json_report(scan: ScanResult, findings: list[RuleFinding], score: Sco
             "evidence": asdict(scan.evidence),
         },
         "score": score.to_dict(),
-        "findings": [finding.to_dict() for finding in sorted(findings, key=lambda item: item.rule_id)],
+        "findings": [finding.to_dict() for finding in sorted_findings],
     }
     return json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
 
-def render_markdown_report(scan: ScanResult, findings: list[RuleFinding], score: ScoreResult) -> str:
+def render_markdown_report(
+    scan: ScanResult,
+    findings: list[RuleFinding],
+    score: ScoreResult,
+) -> str:
+    project_types = ", ".join(scan.profile.project_types) or "unknown"
     lines = [
         "# OSS Maintainer Kit Report",
         "",
         f"Repository: `{scan.root}`",
-        f"Project types: {', '.join(scan.profile.project_types) if scan.profile.project_types else 'unknown'}",
+        f"Project types: {project_types}",
         "",
         "## Health score",
         "",
-        f"**{score.points}/100** — `{score.grade}` ({score.passed}/{score.total_rules} checks passing)",
+        (
+            f"**{score.points}/100** — `{score.grade}` "
+            f"({score.passed}/{score.total_rules} checks passing)"
+        ),
         "",
         "## Findings",
         "",
@@ -37,7 +46,10 @@ def render_markdown_report(scan: ScanResult, findings: list[RuleFinding], score:
     ]
     for finding in sorted(findings, key=lambda item: item.rule_id):
         icon = "✅" if finding.status == "pass" else "❌"
-        lines.append(f"| `{finding.rule_id}` | {icon} {finding.status} | {finding.severity} | {finding.message} |")
+        lines.append(
+            f"| `{finding.rule_id}` | {icon} {finding.status} | "
+            f"{finding.severity} | {finding.message} |"
+        )
 
     lines.extend(["", "## Top recommendations", ""])
     if score.top_recommendations:

@@ -1,5 +1,5 @@
-from pathlib import Path
 import json
+from pathlib import Path
 
 from oss_maintainer_kit.report import render_json_report, render_markdown_report
 from oss_maintainer_kit.rules import evaluate_rules

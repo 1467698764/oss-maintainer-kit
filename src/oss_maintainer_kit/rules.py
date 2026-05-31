@@ -1,7 +1,7 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable
 
 from .models import RuleFinding, ScanResult
 
@@ -67,7 +67,10 @@ RULES: tuple[Rule, ...] = (
         lambda scan: bool(scan.evidence.manifests),
         "At least one package manifest was found.",
         "No supported package manifest was found.",
-        "Add a language package manifest such as pyproject.toml, package.json, Cargo.toml, or go.mod.",
+        (
+            "Add a language package manifest such as pyproject.toml, package.json, "
+            "Cargo.toml, or go.mod."
+        ),
     ),
     Rule(
         "contributing-guide",

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import re
 from pathlib import Path
@@ -47,7 +47,11 @@ def scan_repository(path: str | Path) -> ScanResult:
         has_security_policy=_any_exists(root, SECURITY_NAMES),
         manifests=manifests,
     )
-    return ScanResult(root=root, profile=RepositoryProfile(project_types=project_types), evidence=evidence)
+    return ScanResult(
+        root=root,
+        profile=RepositoryProfile(project_types=project_types),
+        evidence=evidence,
+    )
 
 
 def _first_existing(root: Path, names: tuple[str, ...]) -> Path | None:
