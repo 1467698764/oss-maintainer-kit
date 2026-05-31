@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
+from .config import OmkConfig
 from .models import RuleFinding, ScanResult
 
 
@@ -125,17 +126,19 @@ RULES: tuple[Rule, ...] = (
 )
 
 
-def evaluate_rules(scan: ScanResult) -> list[RuleFinding]:
+def evaluate_rules(scan: ScanResult, config: OmkConfig | None = None) -> list[RuleFinding]:
     findings = []
+    configured_weights = config.rule_weights if config else {}
     for rule in RULES:
         passed = rule.check(scan)
+        weight = configured_weights.get(rule.rule_id, rule.weight)
         findings.append(
             RuleFinding(
                 rule_id=rule.rule_id,
                 title=rule.title,
                 status="pass" if passed else "fail",
                 severity=rule.severity,  # type: ignore[arg-type]
-                weight=rule.weight,
+                weight=weight,
                 message=rule.pass_message if passed else rule.fail_message,
                 recommendation=rule.recommendation,
             )

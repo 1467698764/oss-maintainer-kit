@@ -35,10 +35,13 @@ Markdown is intended for maintainers and project discussions. JSON is intended f
 ## Audit gate
 
 ```bash
+omk audit .
 omk audit . --min-score 80
 ```
 
 The audit command exits with status code `1` when the score is below the configured threshold. This makes it useful in CI jobs that should block releases until the repository has basic maintainer-facing files.
+
+When `--min-score` is omitted, `omk audit` uses `min_score` from `omk.toml`, or `75` if no configuration file exists.
 
 ## Badge
 

@@ -16,3 +16,5 @@ OSS Maintainer Kit uses a weighted checklist. Passing all rules yields a 100/100
 | `security-policy` | 9 | medium | `SECURITY.md` exists in root or `.github/`. |
 
 The rule set is intentionally practical rather than exhaustive. A high score means the project communicates the basics well; it does not guarantee code quality or security.
+
+Rule weights can be overridden in `omk.toml` under `[rule_weights]`. Unknown or omitted rule IDs keep the built-in defaults.

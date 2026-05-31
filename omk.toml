@@ -1,0 +1,13 @@
+﻿min_score = 90
+
+[rule_weights]
+readme-depth = 14
+license = 12
+tests = 12
+ci = 10
+package-manifest = 10
+contributing-guide = 9
+issue-template = 8
+pr-template = 8
+changelog = 8
+security-policy = 9

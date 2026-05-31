@@ -19,6 +19,7 @@ Small open-source projects often fail to communicate the basics: what the projec
 - Rule findings for README depth, license, tests, CI, package manifests, contribution guide, templates, changelog, and security policy.
 - Markdown and JSON reports for humans and automation.
 - Safe template initialization that skips existing files unless `--force` is used.
+- Optional `omk.toml` configuration for custom audit thresholds and rule weights.
 - Pure Python runtime with a small, testable module structure.
 
 ## Installation
@@ -59,6 +60,16 @@ Write a JSON report for automation:
 omk report . --format json --output omk-report.json
 ```
 
+Customize the default audit gate and rule weights with [`omk.toml`](omk.toml):
+
+```toml
+min_score = 90
+
+[rule_weights]
+license = 12
+tests = 12
+```
+
 ## Example output
 
 ```text
@@ -87,7 +98,8 @@ A Markdown report starts with:
 | `omk report <path>` | Render Markdown or JSON report. |
 | `omk init-templates <path>` | Create CONTRIBUTING, SECURITY, issue, and PR templates. |
 
-See [`docs/usage.md`](docs/usage.md) and [`docs/rule-reference.md`](docs/rule-reference.md) for details.
+See [`docs/usage.md`](docs/usage.md), [`docs/configuration.md`](docs/configuration.md),
+and [`docs/rule-reference.md`](docs/rule-reference.md) for details.
 
 ## Development
 
