@@ -42,6 +42,8 @@ Audit the current repository:
 ```bash
 omk scan .
 omk score .
+omk audit . --min-score 80
+omk badge .
 omk report . --format markdown
 ```
 
@@ -80,6 +82,8 @@ A Markdown report starts with:
 | --- | --- |
 | `omk scan <path>` | Print repository evidence summary. |
 | `omk score <path>` | Print score and prioritized recommendations. |
+| `omk audit <path> --min-score 80` | Enforce a minimum score in CI or release checks. |
+| `omk badge <path>` | Print a Markdown Shields.io health badge. |
 | `omk report <path>` | Render Markdown or JSON report. |
 | `omk init-templates <path>` | Create CONTRIBUTING, SECURITY, issue, and PR templates. |
 

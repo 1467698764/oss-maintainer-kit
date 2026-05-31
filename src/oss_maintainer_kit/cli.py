@@ -4,6 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from .badge import render_markdown_badge
 from .report import render_json_report, render_markdown_report
 from .rules import evaluate_rules
 from .scanner import scan_repository
@@ -23,6 +24,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     score = subparsers.add_parser("score", help="Show repository health score.")
     score.add_argument("path", nargs="?", default=".")
+
+    audit = subparsers.add_parser("audit", help="Enforce a minimum repository health score.")
+    audit.add_argument("path", nargs="?", default=".")
+    audit.add_argument("--min-score", type=int, default=75)
+
+    badge = subparsers.add_parser("badge", help="Render a Markdown OSS health badge.")
+    badge.add_argument("path", nargs="?", default=".")
 
     report = subparsers.add_parser("report", help="Render a JSON or Markdown report.")
     report.add_argument("path", nargs="?", default=".")
@@ -73,6 +81,28 @@ def main(argv: list[str] | None = None) -> int:
                 print("Top recommendations:")
                 for finding in score.top_recommendations:
                     print(f"- {finding.rule_id}: {finding.recommendation}")
+            return 0
+
+        if args.command == "audit":
+            scan = scan_repository(args.path)
+            findings = evaluate_rules(scan)
+            score = calculate_score(findings)
+            if score.points < args.min_score:
+                print(
+                    f"Health score {score.points}/100 is below required minimum "
+                    f"{args.min_score}/100."
+                )
+                for finding in score.top_recommendations:
+                    print(f"- {finding.rule_id}: {finding.recommendation}")
+                return 1
+            print(f"Health score {score.points}/100 meets required minimum {args.min_score}/100.")
+            return 0
+
+        if args.command == "badge":
+            scan = scan_repository(args.path)
+            findings = evaluate_rules(scan)
+            score = calculate_score(findings)
+            print(render_markdown_badge(score.points, score.grade))
             return 0
 
         if args.command == "report":

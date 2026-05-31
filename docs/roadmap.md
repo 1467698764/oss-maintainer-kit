@@ -5,6 +5,7 @@
 - Add configurable rule weights using a repository-local `omk.toml`.
 - Add SARIF output for code scanning integrations.
 - Add more language-specific test and CI detection.
+- Add `--fail-on` severity thresholds for teams that want stricter release gates.
 
 ## 0.3.0
 

@@ -32,6 +32,26 @@ omk report . --format json --output omk-report.json
 
 Markdown is intended for maintainers and project discussions. JSON is intended for automation and CI checks.
 
+## Audit gate
+
+```bash
+omk audit . --min-score 80
+```
+
+The audit command exits with status code `1` when the score is below the configured threshold. This makes it useful in CI jobs that should block releases until the repository has basic maintainer-facing files.
+
+## Badge
+
+```bash
+omk badge .
+```
+
+The badge command prints a Markdown Shields.io badge such as:
+
+```markdown
+![OSS health](https://img.shields.io/badge/OSS_health-100%2F100_excellent-brightgreen)
+```
+
 ## Initialize templates
 
 ```bash
